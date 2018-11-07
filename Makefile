@@ -1,8 +1,8 @@
 REPOSITORY_URL ?= https://src-d.github.io/charts/
 
-REPOSITORY_FOLDER :=  $(shell pwd)/repository
+REPOSITORY_FOLDER :=  $(shell pwd)/docs
 CHARTS_FOLDER := $(shell pwd)
-CHARTS := $(shell ls -d $(CHARTS_SOURCE_FOLDER)*/ | grep -v repository)
+CHARTS := $(shell ls -d $(CHARTS_SOURCE_FOLDER)*/ | grep -v docs)
 
 HELM_BIN := helm --debug
 HELM_PACKAGE := $(HELM_BIN) package
