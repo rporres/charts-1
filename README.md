@@ -1,2 +1,0 @@
-# charts
-Applications for Kubernetes

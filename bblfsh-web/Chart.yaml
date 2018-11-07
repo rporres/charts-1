@@ -1,5 +1,0 @@
-apiVersion: v1
-name: bblfsh-web
-version: 0.5.0
-description: |
-    A web interface for Babelfish (https://doc.bblf.sh/).
