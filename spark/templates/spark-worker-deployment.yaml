@@ -1,0 +1,93 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "worker-fullname" . }}
+  labels:
+    heritage: {{ .Release.Service | quote }}
+    release: {{ .Release.Name | quote }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    component: "{{ .Release.Name }}-{{ .Values.Worker.Component }}"
+spec:
+  replicas: {{ default 1 .Values.Worker.Replicas }}
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      component: "{{ .Release.Name }}-{{ .Values.Worker.Component }}"
+  template:
+    metadata:
+      labels:
+        heritage: {{ .Release.Service | quote }}
+        release: {{ .Release.Name | quote }}
+        component: "{{ .Release.Name }}-{{ .Values.Worker.Component }}"
+      annotations:
+        scheduler.alpha.kubernetes.io/affinity: >
+          {
+            "podAntiAffinity": {
+              "requiredDuringSchedulingIgnoredDuringExecution": [
+                {
+                  "topologyKey": "kubernetes.io/hostname",
+                  "labelSelector": {
+                    "matchExpressions": [
+                      {
+                        "key": "component",
+                        "operator": "In",
+                        "values": [ "{{ .Release.Name }}-{{ .Values.Worker.Component }}" ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+    spec:
+      volumes:
+        - name: spark-tmp
+          hostPath:
+            path: {{ template "worker-temporary-dir" . }}
+        {{- if .Values.Worker.Gluster }}
+        - name: glusterfsvol
+          glusterfs:
+             endpoints: {{ required "Missing Worker.Gluster.endpoint" .Values.Worker.Gluster.endpoint }}
+             path: {{ required "Missing Worker.Gluster.volumeName" .Values.Worker.Gluster.volumeName }}
+        {{- end }}
+      containers:
+        - name: {{ template "worker-fullname" . }}
+          image: "{{ .Values.Worker.Image }}:{{ .Values.Worker.ImageTag }}"
+          command: ["/opt/spark/sbin/start-slave.sh", "spark://{{ template "master-fullname" . }}:{{ .Values.Master.ServicePort }}", "--webui-port", "{{ .Values.Worker.ContainerPort }}"]
+          ports:
+            - containerPort: {{ .Values.Worker.ContainerPort }}
+          resources:
+            requests:
+              cpu: "{{ .Values.Worker.Cpu }}"
+              memory: "{{ .Values.Worker.Memory }}"
+          volumeMounts:
+            - mountPath: /spark-temp-data
+              name: spark-tmp
+            {{- if .Values.Worker.Gluster }}
+            - mountPath: {{ default "/mnt/glusterfs" .Values.Worker.Gluster.mountPath }}
+              name: glusterfsvol
+            {{- end }}
+          env:
+          - name: SPARK_DAEMON_MEMORY
+            value: {{ default "1g" .Values.Worker.DaemonMemory | quote }}
+          - name: SPARK_WORKER_MEMORY
+            value: {{ default "1g" .Values.Worker.ExecutorMemory | quote }}
+          - name: SPARK_NO_DAEMONIZE
+            value: "yes"
+          - name: SPARK_LOCAL_DIRS
+            value: "/spark-temp-data"
+          {{- range $key, $value := .Values.Worker.customSparkConfig }}
+          - name: {{ $key | quote }}
+            value: {{ $value | quote }}
+          {{- end }}
+      {{- range $key, $value := .Values.Worker.AdditionalPodContainers }}
+      {{- if $value }}
+        - name: {{ $key }}
+{{ toYaml $value | indent 10 }}
+      {{- end }}
+      {{- end }}
+    {{- if .Values.Worker.NodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.Worker.NodeSelector | indent 8 }}
+    {{- end }}

@@ -1,0 +1,128 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}-consumer
+  labels:
+    app: {{ template "name" . }}-consumer
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.consumer.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "name" . }}-consumer
+        release: {{ .Release.Name }}
+      {{- if .Values.consumer.fluentbitParser }}
+      annotations:
+        logging.parser: {{ .Values.consumer.fluentbitParser }}
+      {{- end }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ required "Missing borges image tag" .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - borges
+            - consumer
+            - --workers={{ .Values.consumer.workers }}
+            - --timeout={{ .Values.consumer.timeout }}
+            {{- if .Values.consumer.profiler }}
+            - --profiler
+            - --profiler-port={{ .Values.consumer.profilerPort }}
+            {{- end }}
+            {{- if .Values.consumer.metrics }}
+            - --metrics
+            - --metrics-port={{ .Values.consumer.metricsPort }}
+            {{- end }}
+            {{- if .Values.broker.jobsQueue }}
+            - --queue={{ .Values.broker.jobsQueue }}
+            {{- end }}
+
+          ports:
+            {{- if .Values.consumer.profiler }}
+            - containerPort: {{ .Values.consumer.profilerPort }}
+            {{- end }}
+            {{- if .Values.consumer.metrics }}
+            - containerPort: {{ .Values.consumer.metricsPort }}
+            {{- end }}
+          env:
+            - name: BORGES_BROKER
+              value: "{{ .Values.broker.connectionString }}"
+            - name: BORGES_DATABASE
+              value: "{{ .Values.db.connectionString }}"
+            - name: BORGES_TEMP_DIR
+              value: "{{ .Values.dir.tmp }}"
+            - name: BORGES_TEMP_DIR_CLEAN
+              value: "{{ .Values.consumer.cleanTmp }}"
+            - name: BORGES_ROOT_REPOSITORIES_DIR
+              value: "{{ .Values.dir.rootRepositories }}"
+            - name: BORGES_LOCKING
+              value: "{{ .Values.locking.connectionString }}"
+            - name: BORGES_LOCKING_TIMEOUT
+              value: "{{ .Values.locking.timeout }}"
+            - name: BORGES_BUCKET_SIZE
+              value: "{{ .Values.consumer.bucketSize }}"
+            - name: LOG_LEVEL
+              value: "{{ .Values.consumer.loglevel }}"
+            - name: LOG_FORMAT
+              value: "{{ .Values.consumer.logformat }}"
+            {{- if .Values.hadoop }}
+            - name: HADOOP_USER_NAME
+              value: "{{ required "Missing hadoop.userName" .Values.hadoop.userName }}"
+            {{- end }}
+            {{- if .Values.consumer.sysdigConfig }}
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: SYSDIG_AGENT_CONF
+              value: |
+                {
+                  "app_checks": [
+                    {
+                      "name": "borges-consumer",
+                      "check_module": "go_expvar",
+                      "pattern": {
+                        "comm": "borges",
+                        "arg": "consumer"
+                      },
+                      "conf": {
+                        "expvar_url": "http://$(POD_IP):{{ .Values.consumer.metricsPort }}/debug/vars",
+                        "metrics": [
+                          { "path": "repos_failed", "type": "rate", "alias": "borges.consumer.repos.failed" },
+                          { "path": "repos_not_found", "type": "rate", "alias": "borges.consumer.repos.not_found" },
+                          { "path": "repos_processed", "type": "rate", "alias": "borges.consumer.repos.processed" },
+                          { "path": "repos_processing_avgtime", "type": "gauge", "alias": "borges.consumer.repos.processing_avgtime" },
+                          { "path": "repos_skipped", "type": "rate", "alias": "borges.consumer.repos.skipped" }
+                        ]
+                      }
+                    }
+                  ]
+                }
+            {{- end }}
+          volumeMounts:
+            # we can safely assume leading "/" as mountPath must be absolute
+            - mountPath: /{{ (split "/" .Values.dir.tmp)._1 }}
+              name: tmp-vol
+            {{- if .Values.glusterfs }}
+            - mountPath: /{{ (split "/" .Values.dir.rootRepositories)._1 }}
+              name: glusterfs-vol
+            {{- end }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+      volumes:
+        - name: tmp-vol
+          emptyDir:
+            medium: Memory
+        {{- if .Values.glusterfs }}
+        - name: glusterfs-vol
+          glusterfs:
+            endpoints: {{ required "Missing glusterfs.endpoint" .Values.glusterfs.endpoint }}
+            path: {{ required "Missing glusterfs.volume" .Values.glusterfs.volume }}
+        {{- end }}
+    {{- if .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+    {{- end }}
