@@ -2,45 +2,45 @@ apiVersion: v1
 entries:
   bblfsh-web:
   - apiVersion: v1
-    created: 2018-11-07T12:59:15.300687928Z
+    created: 2018-11-07T13:00:20.061653357Z
     description: |
       A web interface for Babelfish (https://doc.bblf.sh/).
-    digest: 3197f5f590409245f965d907d8a32b882c78c680213766ccacc5a1553214380c
+    digest: 1ec71553a63b58abdf72f1e8330254a1dea4e7b79b6ce728ff14178f9a446a9f
     name: bblfsh-web
     urls:
     - https://src-d.github.io/charts/bblfsh-web-0.5.0.tgz
     version: 0.5.0
   bblfshd:
   - apiVersion: v1
-    created: 2018-11-07T12:59:15.301877999Z
+    created: 2018-11-07T13:00:20.062983192Z
     description: A Helm chart for Kubernetes
-    digest: 07be1c65b70edf9b8f4efac6d678291e851f49dc168242b17e02d2778da8f29e
+    digest: 4db0d54d86993b8e37f96c1284e100cafbfa7e38bf1d22307e6bb72646663fef
     name: bblfshd
     urls:
     - https://src-d.github.io/charts/bblfshd-0.2.0.tgz
     version: 0.2.0
   bblfshd-sidecar:
   - apiVersion: v1
-    created: 2018-11-07T12:59:15.302323861Z
+    created: 2018-11-07T13:00:20.063502515Z
     description: A Helm chart to template in a bblfshd container into a deployment
-    digest: 1c746633cbafb40f1260b3c99035c449c9683241058834ffe67d18ddfc5b670d
+    digest: 85a41bac18aa5f5bbc8fce852fe6354d60309db9461c370f87f51a93a8d9d25b
     name: bblfshd-sidecar
     urls:
     - https://src-d.github.io/charts/bblfshd-sidecar-0.1.0.tgz
     version: 0.1.0
   borges:
   - apiVersion: v1
-    created: 2018-11-07T12:59:15.302958546Z
+    created: 2018-11-07T13:00:20.064016842Z
     description: A Helm chart for Kubernetes
-    digest: b12f92fcb44095aa574efa6afa2f0cda62c914b81937787014a684d049c95e0c
+    digest: a959514bbfaa0e092f4cfcf73328e8f648580953c8b590fba62b01650cd71157
     name: borges
     urls:
     - https://src-d.github.io/charts/borges-0.6.2.tgz
     version: 0.6.2
   drone:
-  - created: 2018-11-07T12:59:15.303759091Z
+  - created: 2018-11-07T13:00:20.064792999Z
     description: Drone CI
-    digest: c1379bb11fcb450caba1bf830de24b6904029242fe0931121cbe69ceb0d51902
+    digest: 7e8d1d2d123646e23cfed50877932d23f55d5c7de8701aecb26345448842ddc5
     keywords:
     - continuous-deployment
     - continuous-integration
@@ -58,18 +58,18 @@ entries:
     version: 0.2.0
   ewbf-miner:
   - apiVersion: v1
-    created: 2018-11-07T12:59:15.304203698Z
+    created: 2018-11-07T13:00:20.065118646Z
     description: A Helm chart for Kubernetes
-    digest: 533792592e5e5a27567ce3eddeba8c320c2992a5f0018fb7c93bd9fe7fc15dfc
+    digest: 595ac64e45ef1e4cc1ca493f2bba15b224e5c44585098d2604bafb9c3bffbc10
     name: ewbf-miner
     urls:
     - https://src-d.github.io/charts/ewbf-miner-0.1.0.tgz
     version: 0.1.0
   git-server:
   - apiVersion: v1
-    created: 2018-11-07T12:59:15.304628973Z
+    created: 2018-11-07T13:00:20.065482445Z
     description: A Helm chart for Kubernetes
-    digest: 7f589bca07d87254e84ad098d71614ec6714d0aee770dd831095d86a2436fc19
+    digest: ef8afe9adbe1412777ca3529871387b55c329916b96d2be5f6f6e3f9c077d06b
     name: git-server
     urls:
     - https://src-d.github.io/charts/git-server-0.1.0.tgz
@@ -77,18 +77,18 @@ entries:
   gitbase-web:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-11-07T12:59:15.305343905Z
+    created: 2018-11-07T13:00:20.066021678Z
     description: A Helm chart for Kubernetes
-    digest: 54889ecac139c919c0ff74063078ca6fd23b3d94011d96e39299fc0813782f37
+    digest: 1bb1ad80c0c53daa1776a93513fe0a2fd4881050c3b960a2ff7a7b30d422ed4b
     name: gitbase-web
     urls:
     - https://src-d.github.io/charts/gitbase-web-0.1.8.tgz
     version: 0.1.8
   kube-cert-manager:
   - apiVersion: v1
-    created: 2018-11-07T12:59:15.305826909Z
+    created: 2018-11-07T13:00:20.066573916Z
     description: Manages Let's Encrypt TLS certificates for Kubernetes
-    digest: 1865ddf764f03acd9566d46375a1b0bc0b2c78baf366354d9775f6768308211b
+    digest: c5c05e58d41216687a9bbe00e8a90dfe39ba3140ce5f5a170114e2990f3ec004
     name: kube-cert-manager
     urls:
     - https://src-d.github.io/charts/kube-cert-manager-0.3.0.tgz
@@ -96,9 +96,9 @@ entries:
   lookout:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-11-07T12:59:15.307630525Z
+    created: 2018-11-07T13:00:20.068611188Z
     description: A Helm chart for Lookout in distrubuted mode
-    digest: 0011d26e67f52f2f7e56df43eb2afaed175da11c8a2aeaa205417edcd129b690
+    digest: c02d6c1e26bf1afabb08d67e7ca71d1d2f595183e00a6e0797c356fc0004d78f
     name: lookout
     urls:
     - https://src-d.github.io/charts/lookout-0.6.1.tgz
@@ -106,9 +106,9 @@ entries:
   lookout-gometalint-analyzer:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-11-07T12:59:15.307836785Z
+    created: 2018-11-07T13:00:20.068851201Z
     description: A Helm chart for Kubernetes
-    digest: e663d843461d8b98f653e8cb17b588437d899f3090f8ebf726f7d9192f92874a
+    digest: 5db745b36b89d97ed30faa5c534d856c07f3ff2c128437e1c1d90a27f714429e
     name: lookout-gometalint-analyzer
     urls:
     - https://src-d.github.io/charts/lookout-gometalint-analyzer-0.1.0.tgz
@@ -116,9 +116,9 @@ entries:
   lookout-sonarcheck-analyzer:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-11-07T12:59:15.308072599Z
+    created: 2018-11-07T13:00:20.069114041Z
     description: Kubernetes lookout sonarcheck analyzer chart
-    digest: aaecff227d9d997d6451ddae6c3ff0c90b94ea9de46acb4e4eeffdf918feb2db
+    digest: cf5ef5dc57608e0e657719f53ee326755e1be4aa9db63acfd641fa35207ea12f
     home: https://github.com/src-d/lookout-sonarcheck-analyzer
     name: lookout-sonarcheck-analyzer
     urls:
@@ -127,9 +127,9 @@ entries:
   lookout-style-analyzer:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-11-07T12:59:15.308343671Z
+    created: 2018-11-07T13:00:20.069456881Z
     description: A Helm chart for Kubernetes
-    digest: e5dc6709bf3f77623540c7ed61ab407bd22245ebdf73e1a6b957fda3abfab854
+    digest: 16dad69288601710541ad8c0a4c37b912c4e96bc4c122b54b89d9cff3379c1e3
     name: lookout-style-analyzer
     urls:
     - https://src-d.github.io/charts/lookout-style-analyzer-0.1.1.tgz
@@ -137,10 +137,10 @@ entries:
   online-net-stock-alert:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-11-07T12:59:15.30855065Z
+    created: 2018-11-07T13:00:20.069679451Z
     description: This chart deploys a cron that will check for online.net stock and
       alerts on slack
-    digest: cfb84fe561c9d13f15c38614e6e7e4d54ac42f320f6af2fe80e6265ecab08ccf
+    digest: 97723cf8ab632e89824806a1e86a4d05b14d53b2bd9025e3669488d5f025cf88
     home: https://github.com/meyskens/online-net-stock-alert
     name: online-net-stock-alert
     urls:
@@ -148,9 +148,9 @@ entries:
     version: 0.1.1
   rovers:
   - apiVersion: v1
-    created: 2018-11-07T12:59:15.308781093Z
+    created: 2018-11-07T13:00:20.069962322Z
     description: A Helm chart for Kubernetes
-    digest: 97a9dcad4629c70c9b6000045e68572cd6f521eace26c23f9fb806d9fd6591a9
+    digest: 6ecf7a511f78b85465a0e2c90ad97971e04db378e6e60d7d259e22f59d0e5b2b
     name: rovers
     urls:
     - https://src-d.github.io/charts/rovers-0.2.0.tgz
@@ -158,9 +158,9 @@ entries:
   scylla:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-11-07T12:59:15.309043414Z
+    created: 2018-11-07T13:00:20.070409799Z
     description: A Helm chart for Scylla
-    digest: 183717b6364f7c6c3db9ec5ee81814f51b8370b9603193583cd4ca0f04a18f29
+    digest: 24b63d3613ad79c951876e982569939fbbf5c53a4ccccbd1d86c8a296ba13861
     home: https://www.scylladb.com/
     icon: https://www.scylladb.com/wp-content/uploads/logo-scylla.svg
     name: scylla
@@ -171,9 +171,9 @@ entries:
     - https://src-d.github.io/charts/scylla-0.1.1.tgz
     version: 0.1.1
   spark:
-  - created: 2018-11-07T12:59:15.309443771Z
+  - created: 2018-11-07T13:00:20.070852081Z
     description: Fast and general-purpose cluster computing system.
-    digest: f7c460eadd5d24ffea586fe4afb7abd038dd8dbe9151a23463cd7c80dbb5959b
+    digest: c2539eee0b5f958a0fea11269eaf46cd16ecbc53a19286e2035d522cb649e376
     home: http://spark.apache.org
     icon: http://spark.apache.org/images/spark-logo-trademark.png
     maintainers:
@@ -188,9 +188,9 @@ entries:
     version: 0.2.0
   spark-api-jupyter:
   - apiVersion: v1
-    created: 2018-11-07T12:59:15.309686612Z
+    created: 2018-11-07T13:00:20.071152889Z
     description: A Helm chart for Kubernetes
-    digest: 9529222d83bdd1eb6aea55ba58c0ffd64e8f884b816c5734eeb1408d721df4ba
+    digest: 972bb5dff489ac536514b0d43ded37507d5b557e051a2ea4511537721ea22f87
     name: spark-api-jupyter
     urls:
     - https://src-d.github.io/charts/spark-api-jupyter-0.1.1.tgz
@@ -198,11 +198,11 @@ entries:
   website-redirect:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-11-07T12:59:15.309919167Z
+    created: 2018-11-07T13:00:20.071478655Z
     description: A Helm chart to redirect all requests to another URL
-    digest: bc7b23a843ac02ce04a75f2c436eb9054262a0dfae8faf4dcc007e799ae94970
+    digest: 8871931988f99d1a30df0c44f73452cfc47af4b43aa141e0408eb163d127b3c8
     name: website-redirect
     urls:
     - https://src-d.github.io/charts/website-redirect-0.3.1.tgz
     version: 0.3.1
-generated: 2018-11-07T12:59:15.300257642Z
+generated: 2018-11-07T13:00:20.06116359Z
