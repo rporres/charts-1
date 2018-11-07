@@ -2,7 +2,7 @@ sudo: required
 
 stages:
   - name: upload
-    if: branch = master
+    if: branch = master AND type = push
 
 jobs:
   include:
